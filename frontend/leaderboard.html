@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Tap Leaderboard</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>🏆 Pizza Tap Leaderboard 🏆</h1>
+        <ol>
+            <li v-for="user in leaderboard" :key="user.username">
+                {{ user.username }}: {{ user.earnings }} 🍕
+            </li>
+        </ol>
+        <button @click="goBack">Back to Game</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                leaderboard: []
+            },
+            created() {
+                fetch('/backend/leaderboard.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        this.leaderboard = data;
+                    })
+                    .catch(error => console.error('Error fetching leaderboard:', error));
+            },
+            methods: {
+                goBack: function() {
+                    window.location.href = 'index.html';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

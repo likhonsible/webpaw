@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tap Pizza Game</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>Tap the Pizza to Earn!</h1>
+        <img id="pizza" 
+            :src="pizzaImage" 
+            alt="Pizza" 
+            @click="earnPizza"
+            :class="{clicked: clicked}"
+        >
+        <div id="earnings">Earnings: {{ earnings }}</div>
+        <button @click="goToLeaderboard">View Leaderboard</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                earnings: 0,
+                clicked: false,
+                pizzaImage: 'assets/pizza.png',
+            },
+            methods: {
+                earnPizza: function() {
+                    this.clicked = true;
+                    setTimeout(() => { this.clicked = false; }, 200);
+                    
+                    // Replace 'telegram_user_id' with dynamic Telegram ID if available
+                    const userId = 'telegram_user_id'; 
+
+                    fetch(`/backend/tap.php?user_id=${userId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            this.earnings = data.earnings;
+                        })
+                        .catch(error => console.error('Error fetching earnings:', error));
+                },
+                goToLeaderboard: function() {
+                    window.location.href = 'leaderboard.html';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

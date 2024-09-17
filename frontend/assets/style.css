@@ -1,0 +1,40 @@
+body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+}
+
+h1 {
+    color: #ff6347;
+    margin-bottom: 20px;
+}
+
+#pizza {
+    cursor: pointer;
+    width: 300px;
+    transition: transform 0.2s ease-in-out;
+}
+
+#pizza.clicked {
+    transform: scale(1.2);
+}
+
+#earnings {
+    font-size: 24px;
+    margin-top: 20px;
+    color: #333;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+button:hover {
+    background-color: #ff4500;
+}
